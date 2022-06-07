@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de assinatura</title>
+</head>
+<body>
+    <div>
+    <label for="signatureSelector">Escolha uma calculadora</label>
+    <select name="selecaoAPI" id="signatureSelector" onchange="update()">
+        <option value="">--Por favor escolher um tipo de API--</option>
+        <option value="api1">Calculadora 1</option>
+        <option value="api2">Calculadora 2</option>
+        <option value="api3">Calculadora 3</option>
+        <option value="api4">Calculadora 4</option>
+        <option value="api5">Calculadora 5</option>
+        <option value="api6">Calculadora 6</option>
+    </select>
+    </div>
+    <div id="sign1">
+        <label for="dsMerchantAmount">DS_MERCHANT_AMOUNT</label>
+        <input type="text" name="input[]" id="dsMerchantAmount"">
+    </div>
+    <div id="sign2">
+        <label for="dsMerchantOrder">DS_MERCHANT_ORDER</label>
+        <input type="text" name="input[]" id="dsMerchantOrder">
+    </div>
+    <div id="sign3">    
+        <label for="dsMerchantMerchantCode">DS_MERCHANT_MERCHANTCODE</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantCode">   
+    </div>
+    <div id="sign4">    
+        <label for="dsMerchantMerchantCurrency">DS_MERCHANT_CURRENCY</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantCurrency">   
+    </div>
+    <div id="sign5">    
+        <label for="dsMerchantMerchantPan">DS_MERCHANT_PAN</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantPan">   
+    </div>
+    <div id="sign6">    
+        <label for="dsMerchantMerchantCVV2">DS_MERCHANT_CVV2</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantCVV2">   
+    </div>
+    <div id="sign7">    
+        <label for="dsMerchantMerchantTransactionType">DS_MERCHANT_TRANSACTIONTYPE</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantTransactionType">   
+    </div>
+    <div id="sign8">    
+        <label for="chave">CHAVE</label>
+        <input type="text" name="input[]" id="chave">   
+    </div>
+    <div id="btn">
+        <button type="submit" onclick="calcular()">Calcular</button>
+    </div>
+    <div id="resultado">
+        <label for="result">Resultado</label>
+        <input type="text" name="resultado" id="result">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script type="text/javascript">
+        function update(){ //escolher o cálculo e show/hide certos campos
+            let text;
+            let seletor = document.getElementById("signatureSelector").value;
+                    
+            switch(seletor) {
+            case "api1":
+                text = "API 1";
+                break;
+            case "api2":
+                text = "API 2";
+                break;
+            case "ap3":
+                text = "API 3";
+                break;
+            default:
+                text = "Escolha uma API";
+            }
+            console.log(text);
+        }
+
+        function calcular(){
+            let k = '';
+            let valores = document.getElementsByName('input[]');
+            for (var i=0; i<valores.length;i++){
+                let a = valores[i];
+                k = k+a.value;    
+            }
+            let resultado = CryptoJS.SHA256(k);
+            document.getElementById("result").value= resultado;
+        }
+    </script>
+</body>
+</html>
