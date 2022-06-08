@@ -79,6 +79,21 @@
             console.log(text);
         }
 
+        function choice(command){
+            const selecaoApi = document.getElementById("signatureSelector").value;
+            const escolhaApi = {
+                Api1(selecaoApi){
+                    console.log('API 1');
+                },
+                Api2(selecaoApi){
+                    console.log('API 2');
+                },
+                Api3(selecaoApi){
+                    console.log('API 3');
+                }
+            }
+        }
+
         function calcular(){
             let k = '';
             let valores = document.getElementsByName('input[]');
