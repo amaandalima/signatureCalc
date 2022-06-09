@@ -20,7 +20,7 @@
     </div>
     <div id="sign1">
         <label for="dsMerchantAmount">DS_MERCHANT_AMOUNT</label>
-        <input type="text" name="input[]" id="dsMerchantAmount"">
+        <input type="text" name="input[]" id="dsMerchantAmount">
     </div>
     <div id="sign2">
         <label for="dsMerchantOrder">DS_MERCHANT_ORDER</label>
@@ -53,55 +53,34 @@
     <div id="btn">
         <button type="submit" onclick="calcular()">Calcular</button>
     </div>
+    <div id="assinaturaCompleta">    
+        <label for="assinatura">Assinatura Completa:</label>
+        <span id="assinatura"></span>
+        <!--<input type="text" name="assinatura" id="assinatura">-->   
+    </div>
     <div id="resultado">
-        <label for="result">Resultado</label>
+        <label for="result">Chave SHA256:</label>
         <input type="text" name="resultado" id="result">
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script type="text/javascript">
-        function update(){ //escolher o cálculo e show/hide certos campos
-            let text;
-            let seletor = document.getElementById("signatureSelector").value;
-                    
-            switch(seletor) {
-            case "api1":
-                text = "API 1";
-                break;
-            case "api2":
-                text = "API 2";
-                break;
-            case "ap3":
-                text = "API 3";
-                break;
-            default:
-                text = "Escolha uma API";
-            }
-            console.log(text);
+         function update(){ //escolher o cálculo e show/hide certos campos
+             let seletor = document.getElementById("signatureSelector").value;
+             let escolhaApi = {
+                    'api1': "api1",
+                    'api2': "api2",
+                    'api3': "api3",
+                    'api4': "api4"
+                };
+            return escolhaApi[seletor];
         }
-
-        function choice(command){
-            const selecaoApi = document.getElementById("signatureSelector").value;
-            const escolhaApi = {
-                Api1(selecaoApi){
-                    console.log('API 1');
-                },
-                Api2(selecaoApi){
-                    console.log('API 2');
-                },
-                Api3(selecaoApi){
-                    console.log('API 3');
-                }
-            }
-        }
-
+        
         function calcular(){
-            let k = '';
+            let signature = '';
             let valores = document.getElementsByName('input[]');
-            for (var i=0; i<valores.length;i++){
-                let a = valores[i];
-                k = k+a.value;    
-            }
-            let resultado = CryptoJS.SHA256(k);
+            valores.forEach(valor => {let a=valor; signature = signature+a.value;});
+            document.getElementById("assinatura").innerHTML= signature;
+            let resultado = CryptoJS.SHA256(signature);
             document.getElementById("result").value= resultado;
         }
     </script>
