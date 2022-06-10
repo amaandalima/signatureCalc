@@ -60,19 +60,40 @@
     </div>
     <div id="resultado">
         <label for="result">Chave SHA256:</label>
-        <input type="text" name="resultado" id="result">
+        <input type="text" name="resultado" id="result" readonly>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script type="text/javascript">
          function update(){ //escolher o cálculo e show/hide certos campos
              let seletor = document.getElementById("signatureSelector").value;
              let escolhaApi = {
-                    'api1': "api1",
-                    'api2': "api2",
-                    'api3': "api3",
-                    'api4': "api4"
+                    'api1': function (){
+                        document.getElementById("sign1").style.display="none";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="block";
+                    },
+                    'api2': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="none";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="block";
+                    },
+                    'api3': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="none";
+                        document.getElementById("sign4").style.display="block";
+                    },
+                    'api4': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="none";
+                    }
                 };
-            return escolhaApi[seletor];
+                const selecao = escolhaApi[seletor](); 
+            return selecao;
         }
         
         function calcular(){
