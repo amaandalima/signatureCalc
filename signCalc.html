@@ -105,14 +105,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script type="text/javascript">
         function refresh(){ //limpar inputs e esconder campos não usados
-            for (var i = 1; i < 18; i++) {
-                    document.getElementById("parametro" + i).style.display = "none";
-            }
             let valoresInputs = document.getElementsByName('input[]');
             valoresInputs.forEach(input => {input.value = '';});
             document.getElementById("assinatura").innerHTML= '';
             document.getElementById("result").innerHTML= '';
-
+            for (var i = 1; i < valoresInputs.length; i++) {
+                    document.getElementById("parametro" + i).style.display = "none";
+            }
         }
 
         refresh();
