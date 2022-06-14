@@ -109,14 +109,14 @@
             valoresInputs.forEach(input => {input.value = '';});
             document.getElementById("assinatura").innerHTML= '';
             document.getElementById("result").innerHTML= '';
-            for (var i = 1; i < valoresInputs.length; i++) {
+            for (var i = 1; i <= valoresInputs.length; i++) {
                     document.getElementById("parametro" + i).style.display = "none";
             }
         }
 
         refresh();
         function update(){ //escolher o cálculo e show/hide certos campos
-             let seletor = document.getElementById("signatureSelector").value;
+             const seletor = document.getElementById("signatureSelector").value;
              let escolhaApi = {
                     'calculo1': ['parametro1', 'parametro2', 'parametro3', 'parametro5', 'parametro6', 'parametro7', 'parametro17'],
                     'calculo2': ['parametro1', 'parametro2', 'parametro3', 'parametro7', 'parametro17'],
