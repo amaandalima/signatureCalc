@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de assinatura</title>
+</head>
+<body>
+    <div>
+    <label for="signatureSelector">Escolha uma calculadora</label>
+    <select name="selecaoAPI" id="signatureSelector" onchange="update()">
+        <option value="">--Por favor escolher um tipo de API--</option>
+        <option value="api1">Cálculo da Assinatura para Autorização</option>
+        <option value="api2">Cálculo da Assinatura para Captura e Cancelamento</option>
+        <option value="api3">Cálculo da Assinatura para Mensagem de Retorno</option>
+        <option value="api4">Cálculo de Assinatura Webservice</option>
+        <option value="api5">Cálculo de Assinatura Checkout</option>
+        <option value="api6">Cálculo de Assinatura Comércio</option>
+        <option value="api7">Cálculo da Assinatura da Requisição</option>
+        <option value="api8">Cálculo da Assinatura das Mensagens</option>
+        <option value="api8">Cálculo da Assinatura utilizando o Checkout</option>
+    </select>
+    </div>
+    <div id="sign1">
+        <label for="dsMerchantAmount">Ds_Merchant_Amount</label>
+        <input type="text" name="input[]" id="dsMerchantAmount">
+    </div>
+    <div id="sign2">
+        <label for="dsMerchantOrder">Ds_Merchant_Order</label>
+        <input type="text" name="input[]" id="dsMerchantOrder">
+    </div>
+    <div id="sign3">    
+        <label for="dsMerchantMerchantCode">Ds_Merchant_MerchantCode</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantCode">   
+    </div>
+    <div id="sign4">    
+        <label for="dsMerchantMerchantCurrency">Ds_Merchant_Currency</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantCurrency">   
+    </div>
+    <div id="sign5">    
+        <label for="dsMerchantMerchantPan">Ds_Merchant_Pan</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantPan">   
+    </div>
+    <div id="sign6">    
+        <label for="dsMerchantMerchantCVV2">Ds_Merchant_Cvv2</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantCVV2">   
+    </div>
+    <div id="sign7">    
+        <label for="dsMerchantMerchantTransactionType">Ds_Merchant_TransactionType</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantTransactionType">   
+    </div>
+    <div id="sign8">    
+        <label for="dsResponse">Ds_Response</label>
+        <input type="text" name="input[]" id="dsResponse">   
+    </div>
+    <div id="sign9">    
+        <label for="dsMerchantMerchantURL">Ds_Merchant_MerchantURL</label>
+        <input type="text" name="input[]" id="dsMerchantMerchantURL">   
+    </div>
+    <div id="sign10">    
+        <label for="dsMerchantIdetifier">Ds_Merchant_Identifier</label>
+        <input type="text" name="input[]" id="dsMerchantIdetifier">   
+    </div>
+    <div id="sign11">    
+        <label for="dsGroup">Ds_Group</label>
+        <input type="text" name="input[]" id="dsGroup">   
+    </div>
+    <div id="sign12">    
+        <label for="dsSecurePayment">Ds_Secure_Payment</label>
+        <input type="text" name="input[]" id="dsSecurePayment">   
+    </div>
+    <div id="sign13">    
+        <label for="dsMerchantDirectPayment">Ds_Merchant_DirectPayment</label>
+        <input type="text" name="input[]" id="dsMerchantDirectPayment">   
+    </div>
+    <div id="sign14">    
+        <label for="chave">Chave</label>
+        <input type="text" name="input[]" id="chave">   
+    </div>
+    <div id="btn">
+        <button type="submit" onclick="calcular()">Calcular</button>
+    </div>
+    <div id="assinaturaCompleta">    
+        <label for="assinatura">Assinatura Completa:</label>
+        <span id="assinatura"></span>
+        <!--<input type="text" name="assinatura" id="assinatura">-->   
+    </div>
+    <div id="resultado">
+        <label for="result">Chave SHA256:</label>
+        <span id="result"></span>
+        <!--<input type="text" name="resultado" id="result" readonly>-->
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script type="text/javascript">
+         function update(){ //escolher o cálculo e show/hide certos campos
+             let seletor = document.getElementById("signatureSelector").value;
+             let escolhaApi = {
+                    'api1': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="none";
+                        document.getElementById("sign5").style.display="block";
+                        document.getElementById("sign6").style.display="block";
+                        document.getElementById("sign7").style.display="block";
+                        document.getElementById("sign8").style.display="block";
+                        document.getElementById("sign9").style.display="block";
+                        document.getElementById("sign10").style.display="block";
+                    },
+                    'api2': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="none";
+                        document.getElementById("sign5").style.display="none";
+                        document.getElementById("sign6").style.display="none";
+                    },
+                    'api3': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="none";
+                        document.getElementById("sign4").style.display="block";
+                        document.getElementById("sign5").style.display="block";
+                        document.getElementById("sign6").style.display="block";
+                    },
+                    'api4': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="none";
+                        document.getElementById("sign5").style.display="block";
+                        document.getElementById("sign6").style.display="block";
+                    },
+                    'api5': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="block";
+                        document.getElementById("sign5").style.display="none";
+                        document.getElementById("sign6").style.display="block";
+                    },
+                    'api6': function (){
+                        document.getElementById("sign1").style.display="block";
+                        document.getElementById("sign2").style.display="block";
+                        document.getElementById("sign3").style.display="block";
+                        document.getElementById("sign4").style.display="block";
+                        document.getElementById("sign5").style.display="block";
+                        document.getElementById("sign6").style.display="none";
+                    }
+                };
+                const selecao = escolhaApi[seletor](); 
+            return selecao;
+        }
+        
+        function calcular(){
+            let signature = '';
+            let valores = document.getElementsByName('input[]');
+            valores.forEach(valor => {let a=valor; signature = signature.concat(a.value)});
+            document.getElementById("assinatura").innerHTML= signature;
+            let resultado = CryptoJS.SHA256(signature);
+            document.getElementById("result").innerHTML= resultado;
+        }
+    </script>
+</body>
+</html>
